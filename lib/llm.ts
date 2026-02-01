@@ -14,17 +14,29 @@ export const LLM_PROVIDER_LABELS: Record<LlmProvider, string> = {
 export const LLM_MODEL_OPTIONS: Record<LlmProvider, LlmModelOption[]> = {
   openai: [
     { id: "gpt-5", label: "GPT-5" },
+    { id: "gpt-4.1", label: "GPT-4.1" },
+    { id: "gpt-4.1-mini", label: "GPT-4.1 mini" },
     { id: "gpt-4o", label: "GPT-4o" },
-    { id: "gpt-4o-mini", label: "GPT-4o mini" },
   ],
   anthropic: [
-    { id: "claude-3-5-sonnet-20240620", label: "Claude 3.5 Sonnet" },
-    { id: "claude-3-haiku-20240307", label: "Claude 3 Haiku" },
+    { id: "claude-sonnet-4-5-20250929", label: "Claude 4.5 Sonnet" },
   ],
   openrouter: [
     { id: "openai/gpt-5", label: "GPT-5 (OpenRouter)" },
+    { id: "openai/gpt-4.1", label: "GPT-4.1 (OpenRouter)" },
+    { id: "openai/gpt-4.1-mini", label: "GPT-4.1 mini (OpenRouter)" },
     { id: "openai/gpt-4o", label: "GPT-4o (OpenRouter)" },
-    { id: "anthropic/claude-3.5-sonnet", label: "Claude 3.5 Sonnet (OpenRouter)" },
+    {
+      id: "anthropic/claude-4.5-sonnet",
+      label: "Claude 4.5 Sonnet (OpenRouter)",
+    },
+    {
+      id: "anthropic/claude-4.5-haiku",
+      label: "Claude 4.5 Haiku (OpenRouter)",
+    },
+    { id: "anthropic/claude-4-opus", label: "Claude 4 Opus (OpenRouter)" },
+    { id: "mistralai/mistral-large", label: "Mistral Large (OpenRouter)" },
+    { id: "mistralai/mixtral-8x7b", label: "Mixtral 8x7B (OpenRouter)" },
   ],
 };
 
@@ -32,7 +44,7 @@ export const DEFAULT_LLM_PROVIDER: LlmProvider = "openai";
 
 export const DEFAULT_LLM_MODEL: Record<LlmProvider, string> = {
   openai: "gpt-5",
-  anthropic: "claude-3-5-sonnet-20240620",
+  anthropic: "claude-sonnet-4-5-20250929",
   openrouter: "openai/gpt-5",
 };
 

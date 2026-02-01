@@ -51,6 +51,10 @@ function isDocsUrl(url: URL) {
   return url.hostname.startsWith("docs.") || url.pathname.startsWith("/docs");
 }
 
+function isGithubUrl(url: URL) {
+  return url.hostname.endsWith("github.com");
+}
+
 function isHardcodedOption(
   url: URL,
   options: Array<{ label: string; url: string }>
@@ -147,7 +151,7 @@ export default function SetupModal({
         <div className="mt-5 space-y-4">
           <div>
             <label className="text-xs font-medium text-zinc-300">
-              Conversation URL
+              Conversation URL (docs or GitHub repo)
             </label>
             <input
               type="url"
@@ -163,9 +167,9 @@ export default function SetupModal({
                 try {
                   const parsed = new URL(normalized);
                   const isHardcoded = isHardcodedOption(parsed, docsOptions);
-                  if (!isHardcoded && !isDocsUrl(parsed)) {
+                  if (!isHardcoded && !isDocsUrl(parsed) && !isGithubUrl(parsed)) {
                     setUrlError(
-                      "Conversation URL must be a docs page (docs.* or /docs)."
+                      "Conversation URL must be a docs page or GitHub repo."
                     );
                   } else {
                     setUrlError("");
@@ -174,7 +178,7 @@ export default function SetupModal({
                   setUrlError("Enter a valid URL, including https://.");
                 }
               }}
-              placeholder="https://docs.openclaw.ai"
+              placeholder="https://docs.openclaw.ai or https://github.com/org/repo"
               className="mt-2 w-full rounded-2xl border border-zinc-900/60 bg-zinc-950/30 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-600"
               spellCheck={false}
             />
@@ -318,9 +322,9 @@ export default function SetupModal({
                 try {
                   const parsed = new URL(normalizedUrl);
                   const isHardcoded = isHardcodedOption(parsed, docsOptions);
-                  if (!isHardcoded && !isDocsUrl(parsed)) {
+                  if (!isHardcoded && !isDocsUrl(parsed) && !isGithubUrl(parsed)) {
                     setUrlError(
-                      "Conversation URL must be a docs page (docs.* or /docs)."
+                      "Conversation URL must be a docs page or GitHub repo."
                     );
                     hasError = true;
                   } else {
