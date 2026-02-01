@@ -106,6 +106,10 @@ export function extractRepoInfo(url: string): {
         if (ownerRepoMatch?.[1] && ownerRepoMatch?.[2]) {
             const owner = ownerRepoMatch[1];
             const repo = ownerRepoMatch[2].replace(/\.git$/, '');
+            const blockedOwners = new Set(['repos', 'rest', 'api', 'docs']);
+            if (blockedOwners.has(owner.toLowerCase())) {
+                return null;
+            }
             return {
                 owner,
                 repo,
@@ -123,6 +127,9 @@ export function extractRepoInfo(url: string): {
         );
 
         if (!parsed.hostname.endsWith('github.com')) {
+            return null;
+        }
+        if (parsed.hostname !== 'github.com' && parsed.hostname !== 'www.github.com') {
             return null;
         }
 

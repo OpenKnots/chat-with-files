@@ -26,9 +26,15 @@ function isGithubQuery(messages: UiMessage[]): boolean {
     if (msg.role !== "user") continue;
     const text = getMessageText(msg);
     if (!text) continue;
-    if (/github\.com\/[^\s]+/i.test(text)) return true;
+    if (/https?:\/\/(www\.)?github\.com\/[^/\s]+\/[^/\s]+/i.test(text)) return true;
     if (/git@github\.com:[^\s]+/i.test(text)) return true;
-    if (/\bgithub\b/i.test(text) && /[\w.-]+\/[\w.-]+/.test(text)) return true;
+    if (
+      /\bgithub\b/i.test(text) &&
+      /\b(?!repos\/)(?!rest\/)(?!docs\/)(?!api\/)[\w.-]+\/[\w.-]+\b/.test(
+        text
+      )
+    )
+      return true;
   }
   return false;
 }
@@ -36,7 +42,18 @@ function isGithubQuery(messages: UiMessage[]): boolean {
 function isGithubUrl(url?: string): boolean {
   if (!url) return false;
   if (/^git@github\.com:/i.test(url)) return true;
-  return /github\.com/i.test(url);
+  try {
+    const parsed = new URL(
+      url.startsWith("http") ? url : `https://${url}`
+    );
+    if (parsed.hostname !== "github.com" && parsed.hostname !== "www.github.com") {
+      return false;
+    }
+    const parts = parsed.pathname.split("/").filter(Boolean);
+    return parts.length >= 2;
+  } catch {
+    return false;
+  }
 }
 
 export async function POST(request: Request) {
