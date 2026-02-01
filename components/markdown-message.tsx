@@ -13,7 +13,7 @@ import type React from "react";
 import type { LlmProvider } from "@/lib/llm";
  import { Streamdown } from "streamdown";
  import { code } from "@streamdown/code";
- import { mermaid } from "@streamdown/mermaid";
+import { createMermaidPlugin } from "@/lib/mermaid-plugin";
  
  type MarkdownMessageProps = {
    content: string;
@@ -260,7 +260,7 @@ function MermaidError({ error, chart, retry }: MermaidErrorProps) {
     >
       <Streamdown
         className="md whitespace-pre-wrap text-sm leading-relaxed"
-        plugins={{ code, mermaid }}
+        plugins={{ code, mermaid: createMermaidPlugin() }}
         controls={{
           code: true,
           mermaid: {
