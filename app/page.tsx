@@ -11,7 +11,7 @@ import GithubView from "@/components/github-view";
 import type { DocsUIToolInvocation } from "@/tool/docs-tool";
 import type { GitHubUIToolInvocation } from "@/tool/github-tool";
 import Image from "next/image";
-import { Streamdown } from "streamdown";
+import MarkdownMessage from "@/components/markdown-message";
 import Link from "next/link";
 import { GitHubIcon, TelegramIcon, XIcon } from "@/components/icons";
 import {
@@ -231,12 +231,11 @@ function ChatConversation({
                               switch (part.type) {
                                 case "text":
                                   return (
-                                    <Streamdown
+                                    <MarkdownMessage
                                       key={index}
-                                      className="md whitespace-pre-wrap text-sm leading-relaxed"
-                                    >
-                                      {part.text}
-                                    </Streamdown>
+                                      content={part.text}
+                                      isAnimating={isWaiting && !isUser}
+                                    />
                                   );
 
                                 case "step-start":

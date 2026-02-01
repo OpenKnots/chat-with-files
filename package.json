@@ -31,6 +31,8 @@
     "@ai-sdk/openai": "^3.0.25",
     "@ai-sdk/react": "^3.0.69",
     "@octokit/rest": "^22.0.1",
+    "@streamdown/code": "^1.0.1",
+    "@streamdown/mermaid": "^1.0.1",
     "ai": "^6.0.67",
     "next": "^16.1.6",
     "react": "^19.2.3",
