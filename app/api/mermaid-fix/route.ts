@@ -6,11 +6,13 @@
  const systemPrompt =
    "You fix broken Mermaid diagrams. Return only valid Mermaid code with no code fences or extra text.";
  
-const stripMermaidFences = (text: string) =>
-  text
-    .replace(/^\s*```mermaid\s*/i, "")
-    .replace(/\s*```\s*$/i, "")
-    .trim();
+const extractMermaid = (text: string) => {
+  const mermaidMatch = text.match(/```mermaid\s*([\s\S]*?)```/i);
+  if (mermaidMatch?.[1]) return mermaidMatch[1].trim();
+  const fencedMatch = text.match(/```\s*([\s\S]*?)```/);
+  if (fencedMatch?.[1]) return fencedMatch[1].trim();
+  return text.trim();
+};
  
  export async function POST(request: Request) {
    const apiKey = request.headers.get("x-llm-key")?.trim();
@@ -61,7 +63,7 @@ const stripMermaidFences = (text: string) =>
      prompt,
    });
  
-   const fixedChart = stripMermaidFences(result.text);
+  const fixedChart = extractMermaid(result.text);
   if (!fixedChart) {
     return new Response("AI did not return a valid Mermaid diagram.", {
       status: 422,
