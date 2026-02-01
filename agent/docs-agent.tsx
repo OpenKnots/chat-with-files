@@ -27,7 +27,7 @@ export const createDocsAgent = ({
   return new ToolLoopAgent({
     model: client(model),
     instructions:
-      "You are a helpful docs assistant. If a conversation URL is provided in the system context, use it for docs tool calls unless the user supplies a different URL. Provide concise answers grounded in the tool output.",
+      "You are a helpful docs assistant. Prefer Context7-based retrieval by calling the docs tool with a specific query plus libraryName or libraryId whenever possible. If the user provides a URL, include it in the docs tool call; otherwise only use a URL when Context7 cannot resolve the library. Provide concise answers grounded in the tool output and cite the referenced sources.",
     tools: {
       docs: docsTool,
     },

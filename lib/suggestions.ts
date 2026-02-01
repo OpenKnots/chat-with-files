@@ -213,20 +213,20 @@ function buildDocsSuggestions(context: UrlContext, keywords: string[]): string[]
   const keyword = keywords[0];
 
   if (section) {
-    suggestions.push(`Summarize the ${section} docs`);
+    suggestions.push(`Summarize the ${section} section`);
   } else {
-    suggestions.push("Summarize this docs page");
+    suggestions.push("Summarize this page");
   }
 
   if (page && page !== section) {
-    suggestions.push(`What does the ${page} page cover?`);
+    suggestions.push(`What does the ${page} cover?`);
   }
 
   if (keyword) {
-    suggestions.push(`Explain how ${keyword} works in these docs`);
+    suggestions.push(`Explain how ${keyword} works`);
     suggestions.push(`Show a quick example for ${keyword}`);
   } else {
-    suggestions.push("What are the key concepts on this page?");
+    suggestions.push("What are the key concepts?");
   }
 
   return suggestions;
@@ -243,7 +243,7 @@ function buildGithubSuggestions(
       : "this repository";
   const keyword = keywords[0];
 
-  suggestions.push(`Summarize the ${repoLabel} repository`);
+  suggestions.push(`Summarize the ${repoLabel}`);
   suggestions.push("List key folders and what they do");
 
   if (context.path) {
