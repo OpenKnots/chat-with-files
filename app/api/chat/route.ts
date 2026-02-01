@@ -1,6 +1,7 @@
 import { createDocsAgent } from "@/agent/docs-agent";
 import { createGithubAgent } from "@/agent/github-agent";
 import { createAgentUIStreamResponse } from "ai";
+import { isLlmProvider, isModelSupported } from "@/lib/llm";
 
 type UiMessage = {
   role?: string;
@@ -39,16 +40,24 @@ function isGithubUrl(url?: string): boolean {
 }
 
 export async function POST(request: Request) {
-  const apiKey = request.headers.get("x-openai-key")?.trim();
+  const apiKey = request.headers.get("x-llm-key")?.trim();
+  const provider = request.headers.get("x-llm-provider")?.trim() ?? "";
+  const model = request.headers.get("x-llm-model")?.trim() ?? "";
   if (!apiKey) {
-    return new Response("Missing OpenAI API key.", { status: 401 });
+    return new Response("Missing API key.", { status: 401 });
+  }
+  if (!isLlmProvider(provider)) {
+    return new Response("Invalid provider.", { status: 400 });
+  }
+  if (!model || !isModelSupported(provider, model)) {
+    return new Response("Invalid model for provider.", { status: 400 });
   }
 
   const { messages, chatUrl } = await request.json();
 
   const agent = isGithubUrl(chatUrl) || isGithubQuery(messages ?? [])
-    ? createGithubAgent(apiKey)
-    : createDocsAgent(apiKey);
+    ? createGithubAgent({ provider, apiKey, model })
+    : createDocsAgent({ provider, apiKey, model });
 
   return createAgentUIStreamResponse({
     agent: agent as unknown as ReturnType<typeof createDocsAgent>,

@@ -3,7 +3,7 @@
 This repo is a minimal, **educational starter** for building a chatbot that can **chat with a docs page URL** or a **codebase via a GitHub repo URL** using:
 
 - **Next.js App Router** (UI + API route)
-- **AI SDK** (`ai`, `@ai-sdk/react`, `@ai-sdk/openai`) for streaming UI messages + tool calls
+- **AI SDK** (`ai`, `@ai-sdk/react`, `@ai-sdk/openai`, `@ai-sdk/anthropic`) for streaming UI messages + tool calls
 - A **ToolLoopAgent** that can call tools to fetch docs pages or read code
 - A small **tool UI renderer** that shows retrieval/summarization progress/output inside the chat
 
@@ -39,7 +39,7 @@ It’s intentionally small so you can fork it and create your own custom variant
 
 ### 3) Agent chooses when to call tools
 
-`agent/docs-agent.tsx` defines a `ToolLoopAgent` that uses an OpenAI model and a `tools` map:
+`agent/docs-agent.tsx` defines a `ToolLoopAgent` that uses a provider model and a `tools` map:
 
 - Tool name: `docs`
 - Tool implementation: `docsTool`
@@ -69,7 +69,7 @@ When the agent calls a tool, `useChat()` receives a message part like `tool-docs
 
 - Node.js (modern LTS recommended)
 - **Bun** (recommended) or npm/pnpm/yarn
-- An OpenAI API key (or swap provider/model; see below)
+- An API key for OpenAI, Anthropic, or OpenRouter
 
 ---
 
@@ -89,17 +89,14 @@ Using npm:
 npm install
 ```
 
-### 2) Configure environment variables
+### 2) Add your API key in the UI
 
-Create `.env.local`:
-
-```bash
-OPENAI_API_KEY=your_key_here
-```
+Use the provider and model selectors in the header, then paste the matching API key.
+Keys are stored locally in your browser storage and sent with each request.
 
 Notes:
 
-- The OpenAI provider reads `OPENAI_API_KEY` from the environment.
+- Choose a provider/model pair that your key supports.
 - The included docs tool can fetch a docs URL or read a GitHub repo; keep inputs scoped to avoid slow responses.
 
 ### 3) Run the dev server
@@ -126,10 +123,10 @@ Try prompts like:
 
 ### Change the model
 
-Edit `agent/docs-agent.tsx`:
+Edit `lib/llm.ts`:
 
-- Swap `openai("gpt-4o")` to a different model string
-- Or switch providers entirely (e.g. another AI SDK provider package)
+- Update the model lists for OpenAI, Anthropic, and OpenRouter.
+- Adjust default provider/model values as needed.
 
 Keep the rest of the architecture the same.
 
@@ -208,7 +205,7 @@ bun lint    # lint
 
 This is a standard Next.js App Router project. On Vercel (or similar), ensure:
 
-- `OPENAI_API_KEY` is set in your deployment environment
+- Users will supply their provider/model and API key in the UI
 - Your chosen model/provider is supported in the runtime you deploy to
 
 ---
@@ -224,11 +221,9 @@ This is a standard Next.js App Router project. On Vercel (or similar), ensure:
 
 ### 401/403 or “Unauthorized” from the model provider
 
-- **Cause**: Missing or invalid `OPENAI_API_KEY`.
+- **Cause**: Missing or invalid API key for the selected provider/model.
 - **Fix**:
-  - Add `OPENAI_API_KEY=...` to `.env.local`.
-  - **Restart** the dev server after changing env vars.
-  - If deployed, set the env var in your hosting provider’s environment settings.
+  - Re-enter the key in the UI and confirm the provider/model pairing.
 
 ### The assistant responds, but tools fail (error shown in red)
 
