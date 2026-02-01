@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@source "../node_modules/streamdown/dist/index.js";
+
+:root {
+  /* Vercel-ish dark neutrals */
+  --background: #000000;
+  --foreground: #fafafa;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background:
+    radial-gradient(
+      1200px 800px at 50% -10%,
+      rgba(255, 255, 255, 0.06),
+      transparent 58%
+    ),
+    radial-gradient(
+      900px 600px at 12% 8%,
+      rgba(99, 102, 241, 0.10),
+      transparent 62%
+    ),
+    radial-gradient(
+      900px 600px at 88% 10%,
+      rgba(14, 165, 233, 0.08),
+      transparent 62%
+    ),
+    var(--background);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Minimal markdown styling (Streamdown) */
+.md {
+  font-variant-ligatures: contextual;
+}
+
+.md p {
+  margin: 0.5rem 0;
+}
+
+.md a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.md ul,
+.md ol {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.md li {
+  margin: 0.25rem 0;
+}
+
+.md code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.md pre {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.06);
+}

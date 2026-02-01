@@ -1,0 +1,51 @@
+{
+  "name": "chat-with-files",
+  "version": "0.1.0",
+  "private": true,
+  "author": "OpenKnot",
+  "license": "MIT",
+  "keywords": [
+    "chat-with-files",
+    "ai",
+    "nextjs",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenKnots/chat-with-files"
+  },
+  "homepage": "https://github.com/OpenKnots/chat-with-files",
+  "bugs": {
+    "url": "https://github.com/OpenKnots/chat-with-files/issues"
+  },
+  "description": "Chat with files is a tool that helps you chat with your files using AI.",
+  "scripts": {
+    "bdev": "next build && next dev",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.25",
+    "@ai-sdk/react": "^3.0.69",
+    "@octokit/rest": "^22.0.1",
+    "ai": "^6.0.67",
+    "next": "^16.1.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "resumable-stream": "^2.2.10",
+    "streamdown": "^2.1.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.1.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
