@@ -57,7 +57,7 @@ function buildSystemMessage(url: string): ChatUIMessage {
     parts: [
       {
         type: "text",
-        text: `Conversation URL: ${url}. Use this URL for tool calls unless the user provides a different one.`,
+        text: `Conversation URL: ${url}. Use this URL for tool calls unless the user provides a different one. Respond in Markdown.`,
       },
     ],
   } as ChatUIMessage;
@@ -209,20 +209,13 @@ function ChatConversation({
                             {nonToolParts.map((part, index) => {
                               switch (part.type) {
                                 case "text":
-                                  return message.role === "assistant" ? (
+                                  return (
                                     <Streamdown
                                       key={index}
                                       className="md whitespace-pre-wrap text-sm leading-relaxed"
                                     >
                                       {part.text}
                                     </Streamdown>
-                                  ) : (
-                                    <div
-                                      key={index}
-                                      className="whitespace-pre-wrap text-sm leading-relaxed"
-                                    >
-                                      {part.text}
-                                    </div>
                                   );
 
                                 case "step-start":
