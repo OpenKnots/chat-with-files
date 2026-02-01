@@ -121,15 +121,15 @@ function ChatConversation({
         <div className="pt-8 sm:pt-12">
           <div className="rounded-3xl border border-zinc-900/60 bg-zinc-950/30 p-4 shadow-sm backdrop-blur sm:p-6">
             <div className="text-base font-semibold sm:text-lg">
-              Welcome, ask DocChat anything about your docs or GitHub repo
+              Welcome, ask anything about your docs or GitHub repo
             </div>
             <div className="mt-2 text-sm text-zinc-400">
               Paste a docs page URL or a GitHub repo URL and ask questions.
-              DocChat will fetch the page, summarize it, and answer follow ups
+              Chat will fetch the page, summarize it, and answer follow ups
               grounded in the retrieved content.
             </div>
             {!isKeyReady && (
-              <div className="mt-4 rounded-2xl border border-zinc-900/60 bg-zinc-950/40 p-3 text-xs text-zinc-300">
+              <div className="mt-4 rounded-2xl border border-red-900/60 bg-red-950/40 p-3 text-xs text-red-300">
                 Add your OpenAI API key to start chatting. It is saved in your
                 browser local storage.
               </div>
@@ -152,7 +152,7 @@ function ChatConversation({
                   {!isUser && (
                     <Image
                       src="/logo.png"
-                      alt="DocChat"
+                      alt="Chat"
                       width={32}
                       height={32}
                       className="mt-0.5 hidden size-8 shrink-0 rounded-full border border-zinc-900/60 bg-black p-1 object-contain shadow-sm sm:block"
@@ -269,7 +269,7 @@ function ChatConversation({
               inputDisabled={!chatUrl || !isKeyReady}
               placeholder={
                 chatUrl
-                  ? "Ask Chat Assistant anything about your docs or GitHub repository…"
+                  ? "Ask anything about your docs or GitHub repository…"
                   : "Paste a docs or GitHub URL above to start a conversation…"
               }
               onSubmit={(text: string) => {
@@ -342,7 +342,7 @@ export default function DocsChat() {
           <div className="flex min-w-0 items-center gap-3">
             <Image
               src="/logo.png"
-              alt="DocChat"
+              alt="Chat with Files"
               width={1200}
               height={1200}
               className="aspect-square size-8 shrink-0 rounded-md bg-black p-1 object-contain"
@@ -350,7 +350,7 @@ export default function DocsChat() {
 
             <div className="min-w-0">
               <div className="truncate text-sm font-medium leading-tight">
-                Chat Assistant
+                Chat with Files
               </div>
               <div className="truncate text-[11px] leading-tight text-zinc-400">
                 Chat with docs pages or GitHub repos
