@@ -142,7 +142,8 @@ export default function DocsView({
                   </div>
                 </div>
               ) : null}
-              {invocation.output.docs.rawExcerpt ? (
+              {invocation.output.docs.source === "url" &&
+              invocation.output.docs.rawExcerpt ? (
                 <details>
                   <summary className="cursor-pointer select-none text-[11px] font-medium text-zinc-300">
                     Raw excerpt
@@ -152,7 +153,8 @@ export default function DocsView({
                   </pre>
                 </details>
               ) : null}
-              {invocation.output.docs.fallback ? (
+              {invocation.output.docs.source === "url" &&
+              invocation.output.docs.fallback ? (
                 <details>
                   <summary className="cursor-pointer select-none text-[11px] font-medium text-zinc-300">
                     Fallback details
