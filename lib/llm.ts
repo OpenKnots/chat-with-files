@@ -13,6 +13,7 @@ export const LLM_PROVIDER_LABELS: Record<LlmProvider, string> = {
 
 export const LLM_MODEL_OPTIONS: Record<LlmProvider, LlmModelOption[]> = {
   openai: [
+    { id: "gpt-5", label: "GPT-5" },
     { id: "gpt-4o", label: "GPT-4o" },
     { id: "gpt-4o-mini", label: "GPT-4o mini" },
   ],
@@ -21,6 +22,7 @@ export const LLM_MODEL_OPTIONS: Record<LlmProvider, LlmModelOption[]> = {
     { id: "claude-3-haiku-20240307", label: "Claude 3 Haiku" },
   ],
   openrouter: [
+    { id: "openai/gpt-5", label: "GPT-5 (OpenRouter)" },
     { id: "openai/gpt-4o", label: "GPT-4o (OpenRouter)" },
     { id: "anthropic/claude-3.5-sonnet", label: "Claude 3.5 Sonnet (OpenRouter)" },
   ],
@@ -29,9 +31,9 @@ export const LLM_MODEL_OPTIONS: Record<LlmProvider, LlmModelOption[]> = {
 export const DEFAULT_LLM_PROVIDER: LlmProvider = "openai";
 
 export const DEFAULT_LLM_MODEL: Record<LlmProvider, string> = {
-  openai: "gpt-4o",
+  openai: "gpt-5",
   anthropic: "claude-3-5-sonnet-20240620",
-  openrouter: "openai/gpt-4o",
+  openrouter: "openai/gpt-5",
 };
 
 export function isLlmProvider(value: string | null): value is LlmProvider {

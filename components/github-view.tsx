@@ -30,13 +30,13 @@ export default function GithubView({
     // example of pre-rendering streaming tool calls:
     case "input-streaming":
       return (
-        <div className="rounded-2xl border border-zinc-900/60 bg-zinc-950/20 p-3">
+        <div className="rounded-2xl bg-transparent px-2 py-1">
           {header}
           <details className="mt-2">
             <summary className="cursor-pointer select-none text-[11px] font-medium text-zinc-300">
               Tool input
             </summary>
-            <pre className="mt-2 overflow-x-auto rounded-xl border border-zinc-900/60 bg-black/30 p-3 text-[11px] leading-relaxed text-zinc-200">
+            <pre className="mt-2 overflow-x-auto rounded-xl bg-transparent p-3 text-[11px] leading-relaxed text-zinc-200">
               {JSON.stringify(invocation.input, null, 2)}
             </pre>
           </details>
@@ -44,7 +44,7 @@ export default function GithubView({
       );
     case "input-available":
       return (
-        <div className="rounded-2xl border border-zinc-900/60 bg-zinc-950/20 p-3 text-sm text-zinc-300">
+        <div className="rounded-2xl bg-transparent px-2 py-1 text-sm text-zinc-300">
           {header}
           <div className="mt-2 text-[13px]">
             Getting GitHub information for{" "}
@@ -54,14 +54,14 @@ export default function GithubView({
       );
     case "output-available":
       return (
-        <div className="rounded-2xl border border-zinc-900/60 bg-zinc-950/20 p-3">
+        <div className="rounded-2xl bg-transparent px-2 py-1">
           {header}
           {invocation.output.github ? (
             <details className="mt-2">
               <summary className="cursor-pointer select-none text-[11px] font-medium text-zinc-300">
                 Tool output
               </summary>
-              <pre className="mt-2 overflow-x-auto rounded-xl border border-zinc-900/60 bg-black/30 p-3 text-[11px] leading-relaxed text-zinc-200">
+              <pre className="mt-2 overflow-x-auto rounded-xl bg-transparent p-3 text-[11px] leading-relaxed text-zinc-200">
                 {JSON.stringify(invocation.output.github, null, 2)}
               </pre>
             </details>

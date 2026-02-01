@@ -46,7 +46,7 @@ export default function ChatInput({
       }}
       className="w-full"
     >
-      <div className="mx-auto w-full rounded-3xl border border-zinc-900/60 bg-zinc-950/30 p-2 shadow-sm backdrop-blur md:w-full lg:w-full">
+      <div className="mx-auto min-h-fit w-full rounded-3xl border border-zinc-900/60 p-2 shadow-sm md:w-full lg:w-full">
         {suggestions?.length ? (
           <div className="flex flex-nowrap items-center gap-2 overflow-x-auto px-2 pb-2 pt-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {suggestions.map((s) => (
