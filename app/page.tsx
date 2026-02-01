@@ -235,6 +235,9 @@ function ChatConversation({
                                       key={index}
                                       content={part.text}
                                       isAnimating={isWaiting && !isUser}
+                                      apiKey={apiKey}
+                                      provider={provider}
+                                      model={model}
                                     />
                                   );
 
