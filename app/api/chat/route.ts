@@ -1,5 +1,5 @@
-import { docsAgent } from "@/agent/docs-agent";
-import { githubAgent } from "@/agent/github-agent";
+import { createDocsAgent } from "@/agent/docs-agent";
+import { createGithubAgent } from "@/agent/github-agent";
 import { createAgentUIStreamResponse } from "ai";
 
 type UiMessage = {
@@ -32,13 +32,26 @@ function isGithubQuery(messages: UiMessage[]): boolean {
   return false;
 }
 
-export async function POST(request: Request) {
-  const { messages } = await request.json();
+function isGithubUrl(url?: string): boolean {
+  if (!url) return false;
+  if (/^git@github\.com:/i.test(url)) return true;
+  return /github\.com/i.test(url);
+}
 
-  const agent = isGithubQuery(messages ?? []) ? githubAgent : docsAgent;
+export async function POST(request: Request) {
+  const apiKey = request.headers.get("x-openai-key")?.trim();
+  if (!apiKey) {
+    return new Response("Missing OpenAI API key.", { status: 401 });
+  }
+
+  const { messages, chatUrl } = await request.json();
+
+  const agent = isGithubUrl(chatUrl) || isGithubQuery(messages ?? [])
+    ? createGithubAgent(apiKey)
+    : createDocsAgent(apiKey);
 
   return createAgentUIStreamResponse({
-    agent: agent as typeof docsAgent,
+    agent: agent as unknown as ReturnType<typeof createDocsAgent>,
     uiMessages: messages,
   });
 }

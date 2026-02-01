@@ -5,15 +5,19 @@ export default function ChatInput({
   onSubmit,
   stop,
   suggestions,
+  inputDisabled,
+  placeholder,
 }: {
   status: string;
   onSubmit: (text: string) => void;
   stop?: () => void;
   suggestions?: string[];
+  inputDisabled?: boolean;
+  placeholder?: string;
 }) {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const disabled = status !== "ready";
+  const disabled = inputDisabled || status !== "ready";
   const canStop = !!stop && (status === "streaming" || status === "submitted");
 
   const autoResize = useCallback(() => {
@@ -69,7 +73,10 @@ export default function ChatInput({
           ref={textareaRef}
           rows={1}
           className="w-full resize-none bg-transparent border border-zinc-900/60 bg-zinc-950/30 px-3 py-2 text-sm leading-relaxed text-zinc-100 rounded-xl shadow-sm outline-none placeholder:text-zinc-500 disabled:opacity-60"
-          placeholder="Ask Chat Assistant anything about your docs or GitHub repository…"
+          placeholder={
+            placeholder ??
+            "Ask Chat Assistant anything about your docs or GitHub repository…"
+          }
           disabled={disabled}
           value={text}
           onChange={(e) => setText(e.target.value)}

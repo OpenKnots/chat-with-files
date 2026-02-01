@@ -14,9 +14,14 @@ export default function DocsView({
         <span className="text-xs font-medium text-zinc-100">docs</span>
       </div>
       {"input" in invocation && invocation.input?.url ? (
-        <span className="text-[11px] text-zinc-400">
+        <a
+          className="text-[11px] text-zinc-400 hover:text-zinc-200"
+          href={invocation.input.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {invocation.input.url}
-        </span>
+        </a>
       ) : null}
     </div>
   );
