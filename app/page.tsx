@@ -130,7 +130,7 @@ function ChatConversation({
             </div>
             {!isKeyReady && (
               <div className="mt-4 rounded-2xl border border-red-900/60 bg-red-950/40 p-3 text-xs text-red-300">
-                Add your OpenAI API key to start chatting. It is saved in your
+                Add your API Key to start chatting. It is saved in your
                 browser local storage.
               </div>
             )}
@@ -249,7 +249,7 @@ function ChatConversation({
           <div className="mx-auto w-full max-w-3xl min-w-full md:min-w-0 md:max-w-none lg:max-w-screen-2xl">
             <div className="mb-3 flex items-center gap-2 rounded-2xl border border-zinc-900/60 bg-zinc-950/30 px-3 py-2 text-xs text-zinc-200 sm:hidden">
               <label htmlFor="openai-api-key-mobile" className="text-zinc-400">
-                OpenAI key
+                API Key
               </label>
               <input
                 id="openai-api-key-mobile"
@@ -293,7 +293,7 @@ function ChatConversation({
 export default function DocsChat() {
   const [apiKey, setApiKey] = useState("");
   const [chatUrl, setChatUrl] = useState("");
-  const [urlInput, setUrlInput] = useState("");
+  const [urlInput, setUrlInput] = useState("https://docs.openclaw.ai");
   const [urlError, setUrlError] = useState("");
   const isKeyReady = apiKey.trim().length > 0;
   const isGithubTarget = isGithubUrl(chatUrl);
@@ -364,7 +364,7 @@ export default function DocsChat() {
                 htmlFor="openai-api-key"
                 className="text-[11px] text-zinc-400"
               >
-                OpenAI API key
+                API Key
               </label>
               <input
                 id="openai-api-key"
@@ -427,7 +427,7 @@ export default function DocsChat() {
                   type="url"
                   value={urlInput}
                   onChange={(event) => setUrlInput(event.target.value)}
-                  placeholder="https://docs.example.com/getting-started"
+                  placeholder="https://docs.openclaw.ai"
                   className="flex-1 rounded-2xl border border-zinc-900/60 bg-zinc-950/30 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-600"
                   spellCheck={false}
                 />
