@@ -1,10 +1,3 @@
-export const suggestions = [
-  "Summarize the getting started guide",
-  "What does the auth API say about tokens?",
-  "Summarize the repo and highlight key folders",
-  "Explain the purpose of the `app/` folder in this repo",
-];
-
 export const documentationUrlOptions = [
   { label: "OpenClaw", url: "https://docs.openclaw.ai" },
   { label: "OpenAI", url: "https://platform.openai.com/docs" },

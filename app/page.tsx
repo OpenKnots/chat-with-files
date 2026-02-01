@@ -22,13 +22,7 @@ import {
   type LlmProvider,
 } from "@/lib/llm";
 import { documentationUrlOptions } from "@/lib/constants";
-
-const suggestions = [
-  "Summarize the getting started guide",
-  "What does the auth API say about tokens?",
-  "Summarize the repo and highlight key folders",
-  "Explain the purpose of the `app/` folder in this repo",
-];
+import { buildSuggestions } from "@/lib/suggestions";
 
 
 type ChatUIMessage = DocsAgentUIMessage | GithubAgentUIMessage;
@@ -61,6 +55,29 @@ function buildSystemMessage(url: string): ChatUIMessage {
       },
     ],
   } as ChatUIMessage;
+}
+
+function isTextPart(part: unknown): part is { type: "text"; text: string } {
+  return (
+    !!part &&
+    typeof part === "object" &&
+    (part as { type?: string }).type === "text" &&
+    typeof (part as { text?: string }).text === "string"
+  );
+}
+
+function getLastUserText(messages: ChatUIMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const message = messages[i];
+    if (message.role !== "user") continue;
+    const parts = message.parts ?? [];
+    const partText = parts
+      .filter(isTextPart)
+      .map((part) => part.text)
+      .join("\n");
+    if (partText.trim()) return partText.trim();
+  }
+  return "";
 }
 
 function loadStoredMessages(url: string): ChatUIMessage[] {
@@ -106,6 +123,10 @@ function ChatConversation({
   const isChatReady = isSetupComplete && isKeyReady;
   const isWaiting = status === "streaming" || status === "submitted";
   const [ellipsis, setEllipsis] = useState("");
+  const suggestions = buildSuggestions({
+    chatUrl,
+    lastUserText: messages ? getLastUserText(messages) : "",
+  });
 
   useEffect(() => {
     if (!chatUrl) {
@@ -477,8 +498,8 @@ export default function DocsChat() {
               type="button"
               onClick={() => setIsSetupOpen(true)}
               className={`rounded-xl px-3 py-2 text-xs font-medium shadow-sm transition ${isSetupComplete
-                  ? "border border-zinc-900/60 text-zinc-200 hover:bg-zinc-900/40"
-                  : "bg-white text-zinc-950 hover:bg-zinc-200"
+                ? "border border-zinc-900/60 text-zinc-200 hover:bg-zinc-900/40"
+                : "bg-white text-zinc-950 hover:bg-zinc-200"
                 }`}
             >
               Setup
